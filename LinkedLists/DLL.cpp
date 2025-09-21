@@ -168,6 +168,32 @@ Node *insertbeforetail(Node *head, int val)
     return head;
 }
 
+// Inserting before the kth node of the Linked List.
+Node* insertbeforekth(Node* head,int k,int val){
+    if(k==1){
+        return insertbeforehead(head,val);
+    }
+    Node* temp=head;
+    int cnt=0;
+    while(temp!=NULL){
+        cnt++;
+        if(cnt==k) break;
+        temp=temp->next;
+    }
+    Node* prev=temp->back;
+    Node* newNode=new Node(val,temp,prev);
+    temp->back=newNode;
+    prev->next=newNode;
+    return head;
+}
+
+void insertbeforeNode(Node* node,int val){
+    Node* prev=node->back;
+    Node* newNode=new Node(val,node,prev);
+    prev->next=newNode;
+    node->back=newNode;
+}
+
 void print(Node *head)
 {
     Node *temp = head;
@@ -190,4 +216,8 @@ int main()
     print(newhead);
     Node *newtail = insertbeforetail(newhead, 13);
     print(newtail);
+    Node *newatk=insertbeforekth(newtail,3,12);
+    print(newatk);
+    insertbeforeNode(newatk->next->next,10);
+    print(newatk);
 }
